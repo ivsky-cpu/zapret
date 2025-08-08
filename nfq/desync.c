@@ -2171,7 +2171,7 @@ static uint8_t dpi_desync_tcp_packet_play(bool replay, size_t reasm_offset, uint
 							dis->data_payload, split_pos, pkt1, &pkt1_len))
 						goto send_orig;
 					ip_id=IP4_IP_ID_PREV(ip_id);
-					usleep(250000);
+					usleep(100000);
 					DLOG("sending 1st out-of-order tcp segment 0-%zu len=%zu : ",split_pos-1, split_pos);
 					hexdump_limited_dlog(dis->data_payload,split_pos,PKTDATA_MAXDUMP); DLOG("\n");
 					if (!rawsend((struct sockaddr *)&dst, desync_fwmark, ifout , pkt1, pkt1_len))

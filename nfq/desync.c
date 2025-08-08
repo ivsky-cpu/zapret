@@ -2000,7 +2000,6 @@ static uint8_t dpi_desync_tcp_packet_play(bool replay, size_t reasm_offset, uint
 							ip_id=IP4_IP_ID_NEXT(ip_id);
 							DLOG("sending multisplit part %d %zu-%zu len=%zu seqovl=%u : ",i+1,from,to-1,to-from,seqovl);
 							hexdump_limited_dlog(seg,seg_len,PKTDATA_MAXDUMP); DLOG("\n");
-							usleep(250000);
 							if (!rawsend((struct sockaddr *)&dst, desync_fwmark, ifout , pkt1, pkt1_len))
 							{
 #ifdef __linux__
@@ -2879,6 +2878,7 @@ static uint8_t dpi_desync_udp_packet_play(bool replay, size_t reasm_offset, uint
 						if (!rawsend_rep(dp->desync_repeats,(struct sockaddr *)&dst, desync_fwmark, ifout , pkt1, pkt1_len))
 							goto send_orig;
 						ip_id=IP4_IP_ID_NEXT(ip_id);
+						usleep(500000);
 					}
 					bFake = true;
 				}

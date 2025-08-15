@@ -2,6 +2,7 @@
 
 #include <string.h>
 #include <errno.h>
+#include <unistd.h>
 
 #include "desync.h"
 #include "protocol.h"
@@ -2069,6 +2070,7 @@ static uint8_t dpi_desync_tcp_packet_play(bool replay, size_t reasm_offset, uint
 						ip_id=IP4_IP_ID_PREV(ip_id);
 						DLOG("sending multisplit part %d %zu-%zu len=%zu seqovl=%u : ",i+2,from,to-1,to-from,seqovl);
 						hexdump_limited_dlog(seg,seg_len,PKTDATA_MAXDUMP); DLOG("\n");
+						usleep(25000);
 						if (!rawsend((struct sockaddr *)&dst, desync_fwmark, ifout , pkt1, pkt1_len))
 							goto send_orig;
 
